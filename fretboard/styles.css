@@ -1,18 +1,21 @@
-@import url("https://fonts.googleapis.com/css?family=Lato:100,300,400");
-
 * {
   margin: 0;
   padding: 0;
 }
 
 body {
-  background: #353535;
-  font-family: Lato, sans-serif;
+  background: red;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
 .fretboard {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   background: #be975b;
   width: 100%;
   height: 300px;
@@ -22,6 +25,8 @@ body {
 .string {
   width: 100%;
   height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   position: relative;
 }
@@ -30,20 +35,32 @@ body {
   content: "";
   width: 100%;
   height: 10px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#999));
   background: linear-gradient(#eee, #999);
-  box-shadow: 75px 3px 10px #806233;
+  -webkit-box-shadow: 75px 3px 10px #806233;
+          box-shadow: 75px 3px 10px #806233;
   z-index: 1;
   position: absolute;
   top: 20px;
 }
 
 .note-fret {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex: 1;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   border-right: 10px solid;
-  border-image: linear-gradient(to left, #777, #bbb, #777) 1 100%;
-  justify-content: center;
-  align-items: center;
+  -o-border-image: linear-gradient(to left, #777, #bbb, #777) 1 100%;
+     border-image: -webkit-gradient(linear, right top, left top, from(#777), color-stop(#bbb), to(#777)) 1 100%;
+     border-image: linear-gradient(to left, #777, #bbb, #777) 1 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   position: relative;
 }
 
@@ -51,9 +68,14 @@ body {
   background: #161717;
   min-width: 75px;
   border-right: 12px solid;
-  flex-grow: 0;
-  flex-shrink: 0;
-  border-image: linear-gradient(to left, #bbb, #fff, #bbb) 1 100%;
+  -webkit-box-flex: 0;
+      -ms-flex-positive: 0;
+          flex-grow: 0;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  -o-border-image: linear-gradient(to left, #bbb, #fff, #bbb) 1 100%;
+     border-image: -webkit-gradient(linear, right top, left top, from(#bbb), color-stop(#fff), to(#bbb)) 1 100%;
+     border-image: linear-gradient(to left, #bbb, #fff, #bbb) 1 100%;
 }
 
 .note-fret:before {
@@ -66,5 +88,42 @@ body {
   background: teal;
   z-index: 2;
   color: #eee;
-  opacity: 0.5;
+  opacity: 0;
 }
+
+.single-fretmark:after {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #806233;
+  top: 150px;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+}
+
+.double-fretmark:before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50px;
+  background: #806233;
+  top: 60px;
+  -webkit-transition: translate(-140%, 50%);
+  transition: translate(-140%, 50%);
+}
+
+.double-fretmark:after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50px;
+  background: #806233;
+  top: 100px;
+  -webkit-transition: translate(-140%, 50%);
+  transition: translate(-140%, 50%);
+}
+/*# sourceMappingURL=styles.css.map */

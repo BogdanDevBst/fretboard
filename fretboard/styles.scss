@@ -1,0 +1,103 @@
+@import "./variables.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: red;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.fretboard {
+  display: flex;
+  flex-direction: column;
+  background: #be975b;
+  width: 100%;
+  height: $fretboard-height * 1px;
+  margin-top: 50px;
+}
+
+.string {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: relative;
+}
+
+.string:before {
+  content: "";
+  width: 100%;
+  height: $string-height * 1px;
+  background: linear-gradient(#eee, #999);
+  box-shadow: 75px 3px 10px #806233;
+  z-index: 1;
+  position: absolute;
+  top: $string-top-position * 1px;
+}
+
+.note-fret {
+  display: flex;
+  flex: 1;
+  border-right: 10px solid;
+  border-image: linear-gradient(to left, #777, #bbb, #777) 1 100%;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.note-fret:first-child {
+  background: #161717;
+  min-width: 75px;
+  border-right: 12px solid;
+  flex-grow: 0;
+  flex-shrink: 0;
+  border-image: linear-gradient(to left, #bbb, #fff, #bbb) 1 100%;
+}
+
+.note-fret:before {
+  content: "C";
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  line-height: 30px;
+  text-align: center;
+  background: teal;
+  z-index: 2;
+  color: #eee;
+  opacity: 0;
+}
+
+.single-fretmark:after {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #806233;
+  top: 150px;
+  transform: translate(0, -50%);
+}
+
+.double-fretmark:before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50px;
+  background: #806233;
+  top: 60px;
+  transition: translate(-140%, 50%);
+}
+
+.double-fretmark:after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50px;
+  background: #806233;
+  top: 100px;
+  transition: translate(-140%, 50%);
+}
