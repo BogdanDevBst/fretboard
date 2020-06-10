@@ -2,9 +2,13 @@
   --fretboard-height: 300;
   --number-of-strings: 6;
   --string-height: 10;
+  --half-string-height: calc(var(--string-height) / 2);
   --string-top-position: calc(
-    var(--fretboard-height) / var(--number-of-strings) / 2
+    var(--fretboard-height) / var(--number-of-strings) / 2 -
+      var(--half-string-height)
   );
+  --double-fretmark-position-1: calc(var(--fretboard-height) * 0.25);
+  --double-fretmark-position-2: calc(var(--fretboard-height) * 0.75);
 }
 
 * {
@@ -66,10 +70,10 @@ body {
 
 .note-fret:before {
   content: "C";
-  width: 30px;
-  height: 30px;
+  width: 33px;
+  height: 33px;
   border-radius: 50%;
-  line-height: 30px;
+  line-height: 33px;
   text-align: center;
   background: teal;
   z-index: 2;
@@ -84,7 +88,7 @@ body {
   width: 20px;
   border-radius: 50%;
   background: #806233;
-  top: 150px;
+  top: calc(var(--fretboard-height) / 2 * 1px);
   transform: translate(0, -50%);
 }
 
@@ -95,8 +99,8 @@ body {
   height: 20px;
   border-radius: 50px;
   background: #806233;
-  top: 60px;
-  transition: translate(-140%, 50%);
+  top: calc(var(--double-fretmark-position-1) * 1px);
+  transform: translate(-140%, -50%);
 }
 
 .double-fretmark:after {
@@ -106,6 +110,6 @@ body {
   height: 20px;
   border-radius: 50px;
   background: #806233;
-  top: 100px;
-  transition: translate(-140%, 50%);
+  top: calc(var(--double-fretmark-position-2) * 1px);
+  transform: translate(-140%, -50%);
 }
