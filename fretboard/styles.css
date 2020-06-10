@@ -23,6 +23,7 @@ body {
 }
 
 .fretboard {
+  min-width: 1500px;
   display: flex;
   flex-direction: column;
   background: #be975b;
@@ -81,35 +82,28 @@ body {
   opacity: 0;
 }
 
-.single-fretmark:after {
+.single-fretmark:after,
+.double-fretmark:before,
+.double-fretmark:after {
   content: "";
   position: absolute;
   height: 20px;
   width: 20px;
   border-radius: 50%;
   background: #806233;
+}
+
+.single-fretmark:after {
   top: calc(var(--fretboard-height) / 2 * 1px);
   transform: translate(0, -50%);
 }
 
 .double-fretmark:before {
-  content: "";
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border-radius: 50px;
-  background: #806233;
   top: calc(var(--double-fretmark-position-1) * 1px);
   transform: translate(-140%, -50%);
 }
 
 .double-fretmark:after {
-  content: "";
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border-radius: 50px;
-  background: #806233;
   top: calc(var(--double-fretmark-position-2) * 1px);
   transform: translate(-140%, -50%);
 }
