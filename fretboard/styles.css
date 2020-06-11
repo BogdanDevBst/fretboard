@@ -9,6 +9,7 @@
   );
   --double-fretmark-position-1: calc(var(--fretboard-height) * 0.25);
   --double-fretmark-position-2: calc(var(--fretboard-height) * 0.75);
+  --note-dot-opacity: 0;
 }
 
 * {
@@ -19,7 +20,19 @@
 
 body {
   background: #353535;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: "Roboto Slab", serif;
+}
+
+.settings {
+  display: flex;
+  color: #fff;
+  padding: 20px;
+  border-bottom: 1px solid #444;
+  background-color: #282828;
+}
+
+.accidental-selector {
+  margin-left: 20px;
 }
 
 .fretboard {
@@ -70,7 +83,7 @@ body {
 }
 
 .note-fret:before {
-  content: "C";
+  content: attr(data-note);
   width: 33px;
   height: 33px;
   border-radius: 50%;
@@ -79,7 +92,7 @@ body {
   background: teal;
   z-index: 2;
   color: #eee;
-  opacity: 0;
+  opacity: var(--note-dot-opacity);
 }
 
 .single-fretmark:after,
