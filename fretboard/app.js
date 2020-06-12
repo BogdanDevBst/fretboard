@@ -5,7 +5,16 @@ const selectedInstrumentSelector = document.querySelector(
   "#instrument-selector"
 );
 const accidentalSelector = document.querySelector(".accidental-selector");
-const numberOfFrets = 24;
+const numberOfFretsSelector = document.querySelector("#number-of-frets");
+const showAllNotesSelector = document.querySelector("#show-all-notes");
+const showMultipleNotesSelector = document.querySelector(
+  "#show-multiple-notes"
+);
+
+let allNotes;
+let showMultipleNotes = false;
+
+let numberOfFrets = 24;
 
 const singleFretMarkPositions = [3, 5, 7, 9, 15, 17, 19, 21];
 const doubleFretMarkPositions = [12, 24];
@@ -93,8 +102,10 @@ const app = {
         }
       }
     }
+    allNotes = document.querySelectorAll(".note-fret");
   },
 
+  // note generator
   generateNoteNames(noteIndex, accidentals) {
     noteIndex = noteIndex % 12;
     let noteName;
@@ -113,16 +124,27 @@ const app = {
     }
   },
 
-  setupEventListeners() {
-    fretboard.addEventListener("mouseover", (event) => {
-      if (event.target.classList.contains("note-fret")) {
+  showNoteDot(event) {
+    if (event.target.classList.contains("note-fret")) {
+      if (showMultipleNotes) {
+        app.toggleMultipleNotes(event.target.dataset.note, 1);
+      } else {
         event.target.style.setProperty("--note-dot-opacity", 1);
       }
-    });
+    }
+  },
 
-    fretboard.addEventListener("mouseout", (event) => {
+  hideNoteDot(event) {
+    if (showMultipleNotes) {
+      app.toggleMultipleNotes(event.target.dataset.note, 0);
+    } else {
       event.target.style.setProperty("--note-dot-opacity", 0);
-    });
+    }
+  },
+
+  setupEventListeners() {
+    fretboard.addEventListener("mouseover", this.showNoteDot);
+    fretboard.addEventListener("mouseout", this.hideNoteDot);
 
     selectedInstrumentSelector.addEventListener("change", (event) => {
       selectedInstrument = event.target.value;
@@ -138,9 +160,41 @@ const app = {
         return;
       }
     });
+
+    numberOfFretsSelector.addEventListener("change", () => {
+      numberOfFrets = numberOfFretsSelector.value;
+      this.setupFretboard();
+    });
+
+    showAllNotesSelector.addEventListener("change", () => {
+      if (showAllNotesSelector.checked) {
+        root.style.setProperty("--note-dot-opacity", 1);
+        fretboard.removeEventListener("mouseover", this.showNoteDot);
+        fretboard.removeEventListener("mouseout", this.hideNoteDot);
+        this.setupFretboard();
+      } else {
+        root.style.setProperty("--note-dot-opacity", 0);
+        fretboard.addEventListener("mouseover", this.showNoteDot);
+        fretboard.addEventListener("mouseout", this.hideNoteDot);
+        this.setupFretboard();
+      }
+    });
+
+    showMultipleNotesSelector.addEventListener("change", () => {
+      showMultipleNotes = !showMultipleNotes;
+    });
+  },
+
+  toogleMultipleNotes(noteName, oppacity) {
+    for (let i = 0; i < allNotes.length; i++) {
+      if (allNotes[i].dataset.note === noteName) {
+        allNotes[i].style.setProperty("--note-dot-opacity", oppacity);
+      }
+    }
   },
 };
 
+// populates HTML
 const tools = {
   createElement(element, content) {
     element = document.createElement(element);
