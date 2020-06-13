@@ -185,7 +185,7 @@ const app = {
     });
   },
 
-  toogleMultipleNotes(noteName, oppacity) {
+  toggleMultipleNotes(noteName, oppacity) {
     for (let i = 0; i < allNotes.length; i++) {
       if (allNotes[i].dataset.note === noteName) {
         allNotes[i].style.setProperty("--note-dot-opacity", oppacity);
