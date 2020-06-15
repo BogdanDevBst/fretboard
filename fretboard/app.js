@@ -10,14 +10,18 @@ const showAllNotesSelector = document.querySelector("#show-all-notes");
 const showMultipleNotesSelector = document.querySelector(
   "#show-multiple-notes"
 );
+const noteNameSection = document.querySelector(".note-name-section");
 
 let allNotes;
+
 let showMultipleNotes = false;
 
 let numberOfFrets = 24;
 
 const singleFretMarkPositions = [3, 5, 7, 9, 15, 17, 19, 21];
 const doubleFretMarkPositions = [12, 24];
+
+let accidentals = "flats";
 
 const notesFlat = [
   "C",
@@ -49,8 +53,6 @@ const notesSharp = [
   "B",
 ];
 
-let accidentals = "flats";
-
 const instrumentTuningPresets = {
   Guitar: [4, 11, 7, 2, 9, 4],
   "Bass (4 strings)": [7, 2, 9, 4],
@@ -65,6 +67,7 @@ const app = {
   init() {
     this.setupFretboard();
     this.setupSelectedInstrumentSelector();
+    this.setupNoteNameSection();
     this.setupEventListeners();
   },
 
@@ -124,6 +127,22 @@ const app = {
     }
   },
 
+  setupNoteNameSection() {
+    noteNameSection.innerHTML = "";
+    let noteNames;
+
+    if (accidentals === "flats") {
+      noteNames = notesFlat;
+    } else {
+      noteNames = notesSharp;
+    }
+
+    noteNames.forEach((noteName) => {
+      let noteNameElement = tools.createElement("span", noteName);
+      noteNameSection.appendChild(noteNameElement);
+    });
+  },
+
   showNoteDot(event) {
     if (event.target.classList.contains("note-fret")) {
       if (showMultipleNotes) {
@@ -156,6 +175,7 @@ const app = {
       if (event.target.classList.contains("acc-select")) {
         accidentals = event.target.value;
         this.setupFretboard();
+        this.setupNoteNameSection();
       } else {
         return;
       }
@@ -182,6 +202,20 @@ const app = {
 
     showMultipleNotesSelector.addEventListener("change", () => {
       showMultipleNotes = !showMultipleNotes;
+    });
+
+    noteNameSection.addEventListener("mouseover", (event) => {
+      let noteToShow = event.target.innerText;
+      app.toggleMultipleNotes(noteToShow, 1);
+    });
+
+    noteNameSection.addEventListener("mouseout", (event) => {
+      if (!showAllNotesSelector.checked) {
+        let noteToShow = event.target.innerText;
+        app.toggleMultipleNotes(noteToShow, 0);
+      } else {
+        return;
+      }
     });
   },
 
