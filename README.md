@@ -1,6 +1,4 @@
-# App name: 
-
-Fretboard
+# Fretboard
 
 ## Built with:
 
