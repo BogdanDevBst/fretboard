@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "fretboard",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
