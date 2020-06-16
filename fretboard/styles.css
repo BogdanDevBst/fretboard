@@ -48,7 +48,7 @@ label {
   min-width: 1500px;
   display: flex;
   flex-direction: column;
-  background: #be975b;
+  background: #be975b url(../fretboard/images/wood-pattern.png);
   width: 100%;
   height: calc(var(--fretboard-height) * 1px);
   margin-top: 50px;
